@@ -1,7 +1,7 @@
 from .config import config
 from .p110 import P110Controller
 from ..logger import build_logger
-from iot_controller import app
+from . import app
 
 log = build_logger(".".join(["iot_controller", __name__]))
 
