@@ -1,0 +1,10 @@
+{
+    "UVICORN_PORT": 8006,
+    "devices": {
+        "raelia_heater": {
+            "DEVICE_IP": "raelia-heater.home",
+            "DEVICE_USER": "tim.a.holmes@gmail.com",
+            "DEVICE_PASSWORD": "Amendable-Cannon-Streak9-Triceps"
+        }
+    }
+}

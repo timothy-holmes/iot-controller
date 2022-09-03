@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  controller:
+    build: .
+    ports:
+      - 8006:8006
+    volumes:
+      - type: bind
+        source: ./data
+        target: /iot-controller/data
+      - type: bind
+        source: ./config
+        target: /iot-controller/config
+      - type: bind
+        source: ./logs
+        target: /iot-controller/logs
