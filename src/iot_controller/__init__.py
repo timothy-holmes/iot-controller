@@ -1,14 +1,13 @@
 __version__ = "0.1.0"
 
-import uvicorn
-from .config import config
+from fastapi import FastAPI
+from ..logger import build_logger
 
+log = build_logger(".".join(["iot_controller", __name__]))
 
-def main():
-    uvicorn.run(
-        "src.iot_controller:app",
-        host="0.0.0.0",
-        port=config.UVICORN_PORT,
-        log_level="debug",
-        reload=True,
-    )
+app = FastAPI()
+log.info("App started")
+
+from .routes import app
+
+log.info("Routes loaded")
