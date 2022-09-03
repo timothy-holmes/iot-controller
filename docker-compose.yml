@@ -16,3 +16,8 @@ services:
       - type: bind
         source: ./logs
         target: /iot-controller/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://192.168.1.103:8006/health"]
+      interval: 3600s
+      timeout: 30s
+      retries: 3

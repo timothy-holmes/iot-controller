@@ -27,4 +27,10 @@ def get_status():
     return raelia_heater.status()
 
 
+@app.get("/health")
+def health_check():
+    log.info("GET /health")
+    return {"status": "OK"}
+
+
 log.info("Routes loaded")
