@@ -10,5 +10,3 @@ RUN pip install -r requirements.txt
 
 COPY iot_controller.py iot_controller.py
 COPY src src/
-
-CMD python iot_controller.py
