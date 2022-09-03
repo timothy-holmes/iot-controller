@@ -7,5 +7,5 @@ from .config import config
 
 def main():
     uvicorn.run(
-        app, host="0.0.0.0", port=config.uvicorn_port, log_level="debug", reload=True
+        app, host="0.0.0.0", port=config.UVICORN_PORT, log_level="debug", reload=True
     )
