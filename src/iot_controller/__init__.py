@@ -1,9 +1,7 @@
 __version__ = "0.1.0"
 
 from fastapi import FastAPI
-from ..logger import build_logger
-
-log = build_logger(".".join(["iot_controller", __name__]))
+from ..logger import log
 
 app = FastAPI()
 log.info("App started")

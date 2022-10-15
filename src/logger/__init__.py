@@ -22,12 +22,10 @@ Usage:
 """
 
 with open("./config/logging.json", "r") as config_json:
-    logging.config.dictConfig(json.load(config_json))
+    config = json.load(config_json)
+    logging.config.dictConfig(config["config"])
 
-
-def build_logger(name: str):
-    log = logging.getLogger(name)
-    return log
+log = logging.getLogger(config["name"])
 
 
 def logger_build_test():

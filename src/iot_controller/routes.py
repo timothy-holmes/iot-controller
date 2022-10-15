@@ -1,11 +1,11 @@
 from .config import config
 from .p110 import P110Controller
 from .logic import Logic
-from ..logger import build_logger
+from ..logger import log
 from . import app
 
-log = build_logger(".".join(["iot_controller", __name__]))
-logic = Logic(config.raelia_heater) # TODO: BusinessLogicFactory()
+logic = Logic(config.systems.raelia_heater) # TODO: BusinessLogicFactory()
+raelia_heater = P110Controller(config=config.systems.raelia_heater.devices.P110)
 
 # System
 @app.get("/system/{state}")
@@ -34,29 +34,29 @@ def receive_ht(hum: int, temp: float, id: str):
 
     decision = logic.make_decision(temp)
     if decision == 'turn_on': 
-        return turn_on()
+        result = turn_on()
     elif decision == 'turn_off': 
-        return turn_off()
+        result = turn_off()
     else:
-        return 'Invalid decision'
+        result = None
+    
+    log.info(f"Decision {result=}")
+    return result
 
 # P110 controller
 @app.get("/on")
 def turn_on():
     log.info("GET /on")
-    raelia_heater = P110Controller(config=config.devices.raelia_heater)
     return raelia_heater.on()
 
 @app.get("/off")
 def turn_off():
     log.info("GET /off")
-    raelia_heater = P110Controller(config=config.devices.raelia_heater)
     return raelia_heater.off()
 
 @app.get("/status")
 def get_status():
     log.info("GET /status")
-    raelia_heater = P110Controller(config=config.devices.raelia_heater)
     return raelia_heater.status()
 
 # IoT Controller

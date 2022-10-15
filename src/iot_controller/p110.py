@@ -1,9 +1,7 @@
 from PyP100 import PyP110
 from box import Box
 
-from ..logger import build_logger
-
-log = build_logger(".".join(["iot_controller", __name__]))
+from ..logger import log
 
 
 class P110Controller:
@@ -19,12 +17,10 @@ class P110Controller:
         # TODO: add check for status to confirm is actually on?
         self.obj.turnOn()
         log.info(f"Turned on: {self.obj=}")
-        return None
 
     def off(self):
         self.obj.turnOff()
         log.info(f"Turned off: {self.obj=}")
-        return None
 
     def usage(self):
         return self.obj.getEnergyUsage()

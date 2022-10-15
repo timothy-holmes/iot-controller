@@ -1,4 +1,5 @@
 from .config import config
+from ..logger import log
 
 class Logic:
     def __init__(self, system: str):
@@ -6,6 +7,7 @@ class Logic:
         # self.actuator: str = config.system[system].devices.P110
         self.set_point: float = config.system[system].set_point
         self.last_temp = None
+        self.state: bool
 
     def make_decision(self, temp):
         """
@@ -16,6 +18,9 @@ class Logic:
             temp = set_point --> trend is up --> off
             temp = set_point --> trend is down --> on
         """
+        if not self.state:
+            return None
+        
         if temp > self.set_point:
             decision = 'turn_off'
         elif temp < self.set_point:
