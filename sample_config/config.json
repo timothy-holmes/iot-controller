@@ -1,10 +1,18 @@
 {
     "UVICORN_PORT": 8006,
-    "devices": {
+    "systems": {
         "raelia_heater": {
-            "DEVICE_IP": "raelia-heater.home",
-            "DEVICE_USER": "tim.a.holmes@gmail.com",
-            "DEVICE_PASSWORD": "Amendable-Cannon-Streak9-Triceps"
+            "devices": { 
+                "P110": {
+                    "DEVICE_IP": "raelia-heater.home",
+                    "DEVICE_USER": "tim.a.holmes@gmail.com",
+                    "DEVICE_PASSWORD": "Amendable-Cannon-Streak9-Triceps"
+                },
+                "ht": {
+                    "DEVICE_ID": "shellyht-6BB646"
+                }
+            },
+            "set_point": 18.0
         }
     }
 }
