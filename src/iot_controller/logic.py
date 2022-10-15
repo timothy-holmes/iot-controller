@@ -5,7 +5,7 @@ class Logic:
     def __init__(self, system: str):
         # self.sensor: str = config.systems[system].devices.ht
         # self.actuator: str = config.systems[system].devices.P110
-        self.set_point: float = config.systems[system].set_point
+        self.set_point: float = config.systems.get(system).set_point
         self.last_temp = None
         self.state: bool
 
