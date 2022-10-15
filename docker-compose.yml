@@ -5,7 +5,7 @@ services:
     build: .
     command: python iot_controller.py
     ports:
-      - 192.168.1.103:8006:8006
+      - 8006:8006
     volumes:
       - type: bind
         source: ./data

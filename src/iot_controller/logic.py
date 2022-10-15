@@ -3,9 +3,9 @@ from ..logger import log
 
 class Logic:
     def __init__(self, system: str):
-        # self.sensor: str = config.system[system].devices.ht
-        # self.actuator: str = config.system[system].devices.P110
-        self.set_point: float = config.system[system].set_point
+        # self.sensor: str = config.systems[system].devices.ht
+        # self.actuator: str = config.systems[system].devices.P110
+        self.set_point: float = config.systems[system].set_point
         self.last_temp = None
         self.state: bool
 
