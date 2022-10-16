@@ -21,9 +21,9 @@ class Logic:
             temp = set_point --> trend is down --> on
         """
         
-        if temp > self.set_point:
+        if temp < self.set_point:
             decision = True
-        elif temp < self.set_point:
+        elif temp > self.set_point:
             decision = False
         else:
             if self.last_temp and temp < self.last_temp:
