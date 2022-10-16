@@ -4,19 +4,23 @@ from .logic import Logic
 from ..logger import log
 from . import app
 
-logic = Logic(config.systems.raelia_heater) # TODO: BusinessLogicFactory()
+logic = Logic(config.systems.raelia_heater) # TODO: logic: dict[str, Logic] = BusinessLogicFactory(config.systems)
 raelia_heater = P110Controller(config=config.systems.raelia_heater.devices.P110)
 
 # System
-@app.get("/system/{state}")
-def change_system_state(state: str):
+@app.get("/system/toggle_state")
+def change_system_state():
     """
     Set system on or off.
     """
-    if state == 'on' or state == 'off':
-        logic.state = (state == 'on')
+    logic.state = not logic.state
+
+    if logic.state:
+        raelia_heater.on()
     else:
-        return 'Invalid system state command'
+        raelia_heater.off()
+
+    return f'{logic.state=}'
 
 # Shelly H&T receiver
 @app.get("/shelly/ht")
@@ -34,7 +38,7 @@ def receive_ht(hum: int, temp: float, id: str):
 
     decision = logic.make_decision(temp)
     result = raelia_heater.on() if decision else raelia_heater.off()
-    
+
     return result
 
 # P110 controller
