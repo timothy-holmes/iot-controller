@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   controller:
-    name: iot_controller
+    container_name: iot_controller
     build: .
     command: python iot_controller.py
     ports:
