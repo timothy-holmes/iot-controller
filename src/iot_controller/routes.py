@@ -33,9 +33,7 @@ def receive_ht(hum: int, temp: float, id: str):
     log.info(f"New sensor reading {id=}: {temp=}")
 
     decision = logic.make_decision(temp)
-    log.debug(f"-- Decision {decision=}")
     result = raelia_heater.on() if decision else raelia_heater.off()
-    log.debug(f" -- Result {result=}")
     
     return result
 

@@ -20,16 +20,18 @@ class Logic:
             temp = set_point --> trend is up --> off
             temp = set_point --> trend is down --> on
         """
-        
-        if temp < self.set_point:
-            decision = True
-        elif temp > self.set_point:
-            decision = False
-        else:
-            if self.last_temp and temp < self.last_temp:
+        if self.state: # True
+            if temp < self.set_point:
                 decision = True
-            else:
+            elif temp > self.set_point:
                 decision = False
+            else:
+                if self.last_temp and temp < self.last_temp:
+                    decision = True
+                else:
+                    decision = False
+        else: # False or None
+            decision = False
 
         self.last_temp = temp
         return decision
