@@ -9,7 +9,7 @@ class Logic:
         # self.actuator: str = config.systems[system].devices.P110
         self.set_point: float = system.set_point
         self.last_temp = None
-        self.state: bool
+        self.state: bool = False
 
     def make_decision(self, temp: float):
         """
