@@ -14,11 +14,14 @@ def change_system_state():
     Set system on or off.
     """
     logic.state = not logic.state
+    log.debug(f'{logic.state=}')
 
     if logic.state:
         raelia_heater.on()
+        log.debug(f'{logic.state=}, heater=on')
     else:
         raelia_heater.off()
+        log.debug(f'{logic.state=}, heater=off')
 
     return f'{logic.state=}'
 
