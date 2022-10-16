@@ -11,7 +11,7 @@ class Logic:
         self.last_temp = None
         self.state: bool
 
-    def make_decision(self, temp):
+    def make_decision(self, temp: float):
         """
         TODO: boolean that shit
         Decision matrix:
@@ -20,8 +20,6 @@ class Logic:
             temp = set_point --> trend is up --> off
             temp = set_point --> trend is down --> on
         """
-        if not self.state:
-            return None
         
         if temp > self.set_point:
             decision = True
