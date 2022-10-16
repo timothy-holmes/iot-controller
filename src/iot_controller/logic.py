@@ -24,14 +24,14 @@ class Logic:
             return None
         
         if temp > self.set_point:
-            decision = 'turn_off'
+            decision = True
         elif temp < self.set_point:
-            decision = 'turn_on'
+            decision = False
         else:
             if self.last_temp and temp < self.last_temp:
-                decision = 'turn_on'
+                decision = True
             else:
-                decision = 'turn_on'
+                decision = False
 
         self.last_temp = temp
         return decision

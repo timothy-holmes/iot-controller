@@ -33,31 +33,21 @@ def receive_ht(hum: int, temp: float, id: str):
     log.info(f"New sensor reading {id=}: {temp=}")
 
     decision = logic.make_decision(temp)
-    if decision == 'turn_on': 
-        result = turn_on()
-    elif decision == 'turn_off': 
-        result = turn_off()
-    else:
-        result = None
+    log.info(f"Decision {decision=}")
+    result = raelia_heater.turn_on() if decision else raelia_heater.turn_off()
     
-    log.info(f"Decision {result=}")
     return result
 
 # P110 controller
-@app.get("/on")
-def turn_on():
-    log.info("GET /on")
-    return raelia_heater.on()
-
-@app.get("/off")
-def turn_off():
-    log.info("GET /off")
-    return raelia_heater.off()
-
-@app.get("/status")
-def get_status():
-    log.info("GET /status")
-    return raelia_heater.status()
+@app.get("/p110/{action}")
+def do_p110_action(action: str):
+    match action:
+        case 'on':
+            return raelia_heater.on()
+        case 'off':
+            return raelia_heater.off()
+        case 'status':
+            return raelia_heater.status()
 
 # IoT Controller
 @app.get("/health")
