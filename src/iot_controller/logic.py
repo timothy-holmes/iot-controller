@@ -1,11 +1,12 @@
 from .config import config
 from ..logger import log
+from box import Box
 
 class Logic:
-    def __init__(self, system: str):
+    def __init__(self, system: Box):
         # self.sensor: str = config.systems[system].devices.ht
         # self.actuator: str = config.systems[system].devices.P110
-        self.set_point: float = config.systems.get(system).set_point
+        self.set_point: float = system.set_point
         self.last_temp = None
         self.state: bool
 
