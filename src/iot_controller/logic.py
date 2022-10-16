@@ -1,6 +1,7 @@
+from box import Box
+
 from .config import config
 from ..logger import log
-from box import Box
 
 class Logic:
     def __init__(self, system: Box):
@@ -27,8 +28,8 @@ class Logic:
         elif temp < self.set_point:
             decision = 'turn_on'
         else:
-            if temp > self.last_temp:
-                decision = 'turn_off'
+            if self.last_temp and temp < self.last_temp:
+                decision = 'turn_on'
             else:
                 decision = 'turn_on'
 
