@@ -9,8 +9,10 @@ class P110Controller:
         self.obj = PyP110.P110(
             config.DEVICE_IP, config.DEVICE_USER, config.DEVICE_PASSWORD
         )
-        _ = self.authenticate()
-        log.info(f"P110 controller created: {self.obj=}")
+        log.info(f"P110 ({config.DEVICE_IP}) controller created: {self.obj=}")
+        a = self.authenticate()
+        if a:
+            log.info(f"P110 ({config.DEVICE_IP}) controller authenticated")
 
     def authenticate(self):
         try:
@@ -24,13 +26,13 @@ class P110Controller:
             except Exception as e2:
                 e = f"P110 Authentication Error: {e2}"
                 log.error(e)
-        try:
-            return self.obj.getDeviceInfo()
-        except Exception as e3:
-            e = f"P110 Authentication Failed: {e3}"
-            log.error(e)
+            try:
+                _ = self.obj.getDeviceInfo()
+            except Exception as e3:
+                e = f"P110 Authentication Failed: {e3}"
+                log.error(e)
 
-    def action(self,action_str: str):
+    def action(self,action_str: str) -> str:
         if action_str in dir(self):
             action_method = getattr(self, '_' + action_str)
             if callable(action_method):
@@ -40,8 +42,8 @@ class P110Controller:
                     e = f"P110 Connection Error: {e1}"
                     log.error(e)
                     _ = self.authenticate()
-                    result = action_method()
-                return result
+                    _ = action_method()
+                return action_str
             else:
                 return 'Invalid method (not callable)'
         else:
