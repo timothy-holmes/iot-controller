@@ -17,10 +17,10 @@ def change_system_state():
     log.debug(f'{logic.state=}')
 
     if logic.state:
-        raelia_heater.on()
+        raelia_heater.action('on')
         log.debug(f'{logic.state=}, heater=on')
     else:
-        raelia_heater.off()
+        raelia_heater.action('off')
         log.debug(f'{logic.state=}, heater=off')
 
     return f'{logic.state=}'
@@ -40,20 +40,17 @@ def receive_ht(hum: int, temp: float, id: str):
     log.info(f"New sensor reading {id=}: {temp=}")
 
     decision = logic.make_decision(temp)
-    result = raelia_heater.on() if decision else raelia_heater.off()
-
-    return result
+    if decision:
+        raelia_heater.action('on')
+        return 'raelia_heater=on' 
+    else:
+        raelia_heater.action('off')
+        return 'raelia_heater=off'
 
 # P110 controller
 @app.get("/p110/{action}")
 def do_p110_action(action: str):
-    match action:
-        case 'on':
-            return raelia_heater.on()
-        case 'off':
-            return raelia_heater.off()
-        case 'status':
-            return raelia_heater.status()
+    return raelia_heater.action(action)
 
 # IoT Controller
 @app.get("/health")

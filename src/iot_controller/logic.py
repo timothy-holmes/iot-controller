@@ -33,5 +33,7 @@ class Logic:
         else: # False or None
             decision = False
 
+        log.info(f'Decision: state={self.state}, {temp=}, last_temp={self.last_temp}, set_point={self.set_point} --> {decision}')
+
         self.last_temp = temp
         return decision

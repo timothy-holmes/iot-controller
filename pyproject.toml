@@ -3,6 +3,10 @@ name = "iot-controller"
 version = "0.1.0"
 description = ""
 authors = ["Timothy Holmes <tim.a.holmes@gmail.com>"]
+packages = [
+    {include = "iot_controller", from = "src"},
+    {include = "logging", from = "src"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
