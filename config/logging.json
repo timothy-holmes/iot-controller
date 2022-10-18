@@ -28,7 +28,7 @@
                 "level": "DEBUG",
                 "filename": "./logs/log_file.log",
                 "maxBytes": 1024,
-                "backupCount": 5
+                "backupCount": 1
             }
         },
         "root": {
