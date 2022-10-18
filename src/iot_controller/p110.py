@@ -35,7 +35,7 @@ class P110Controller:
                 log.error(e)
 
     def action(self,action_str: str) -> str:
-        if action_str in dir(self):
+        if '_' + action_str in dir(self):
             action_method = getattr(self, '_' + action_str)
             if callable(action_method):
                 try:
